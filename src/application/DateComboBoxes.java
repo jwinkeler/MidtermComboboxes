@@ -49,13 +49,40 @@ public class DateComboBoxes extends Application {
 				"October",
 				"November",
 				"December");
-		ObservableList<Integer> days = FXCollections.observableArrayList(
-				1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31);
-		final ComboBox monthsComboBox = new ComboBox(months);
-		final ComboBox daysComboBox = new ComboBox(days);
+		ObservableList<Integer> years = FXCollections.observableArrayList(2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020);
+		final ComboBox<String> monthsComboBox = new ComboBox<String>(months);
+		final ComboBox<Integer> yearsComboBox = new ComboBox<Integer>(years);
+		monthsComboBox.setOnAction((event) -> {
+		    String month = monthsComboBox.getSelectionModel().getSelectedItem().toString();
+		    System.out.println("ComboBox Action (selected: " + month + ")");
+		    if (month == "January"||month == "March"||month == "May"||month == "July"||month == "August"||month == "November"){
+		    	ObservableList<Integer> days = FXCollections.observableArrayList(
+						1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+						22,23,24,25,26,27,28,29,30,31);
+		    	final ComboBox<Integer> daysComboBox = new ComboBox<Integer>(days);
+		    	vb.getChildren().addAll(dLabel, daysComboBox);
+		    }
+		    else if(month == "February"){
+				ObservableList<Integer> days = FXCollections.observableArrayList(
+						1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+						22,23,24,25,26,27,28);
+				final ComboBox<Integer> daysComboBox = new ComboBox<Integer>(days);
+				vb.getChildren().addAll(dLabel, daysComboBox);
+		    }
+		    else{
+				ObservableList<Integer> days = FXCollections.observableArrayList(
+						1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,
+						22,23,24,25,26,27,28,29,30);
+				final ComboBox<Integer> daysComboBox = new ComboBox<Integer>(days);
+				vb.getChildren().addAll(dLabel, daysComboBox);
+		    }
+		    
+		});
+		
+		
+		
 		vb.getChildren().addAll(mLabel, monthsComboBox);
-		vb.getChildren().addAll(dLabel, daysComboBox);
-		vb.getChildren().addAll(yLabel);
+		vb.getChildren().addAll(yLabel,yearsComboBox);
 		scene.setRoot(vb);
 		stage.show();
 	};
